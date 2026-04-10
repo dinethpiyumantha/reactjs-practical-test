@@ -1,6 +1,8 @@
 "use client";
 
+import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -13,10 +15,13 @@ import type { ApiUser } from "@/lib/types/user";
 
 type UsersTableProps = {
   users: ApiUser[];
+  favoriteUserIds: number[];
+  onToggleFavorite: (userId: number) => void;
 };
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable({ users, favoriteUserIds, onToggleFavorite }: UsersTableProps) {
   const router = useRouter();
+  const favoriteIdsSet = new Set(favoriteUserIds);
 
   function navigateToUserDetails(userId: number) {
     router.push(`/users/${userId}`);
@@ -26,6 +31,7 @@ export function UsersTable({ users }: UsersTableProps) {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead className="w-14"></TableHead>
           <TableHead>Name</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Company Name</TableHead>
@@ -47,6 +53,26 @@ export function UsersTable({ users }: UsersTableProps) {
             tabIndex={0}
             aria-label={`Open details for ${user.name}`}
           >
+            <TableCell>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label={
+                  favoriteIdsSet.has(user.id)
+                    ? `Remove ${user.name} from favorites`
+                    : `Add ${user.name} to favorites`
+                }
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onToggleFavorite(user.id);
+                }}
+              >
+                <Star
+                  className={favoriteIdsSet.has(user.id) ? "fill-yellow-500 text-yellow-500" : ""}
+                  size={16}
+                />
+              </Button>
+            </TableCell>
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.company.name}</TableCell>
