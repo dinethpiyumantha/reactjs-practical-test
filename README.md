@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Key decisions and trade-offs
+
+- Next.js: used to reduce routing/setup overhead (minimal route config) and move faster within the time limit.
+- TanStack Query: used for minimal API state handling (loading/error/cache) with less custom code.
+- shadcn/ui: used for fast, consistent UI building with reusable primitives instead of custom components.
+- Fetch API over Axios: used native `fetch` to avoid extra dependency risk and keep the stack lean, especially after recent Axios security concerns.
+
+## Requirements status
+
+All required items were completed:
+
+- Fetch and display users
+- Search and filter
+- User detail view
+- Favourite users
