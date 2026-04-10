@@ -1,4 +1,4 @@
-import { UsersTable } from "@/components/users/users-table";
+import { UsersSearch } from "@/components/users/users-search";
 import { fetchUsers } from "@/lib/api/users";
 
 export default async function Home() {
@@ -9,7 +9,7 @@ export default async function Home() {
       <main className="w-full max-w-5xl space-y-4">
         <h1 className="text-2xl font-semibold">Users</h1>
 
-        <UsersTable users={users} />
+        <UsersSearch users={users} />
       </main>
     </div>
   );
