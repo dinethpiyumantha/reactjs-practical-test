@@ -1,4 +1,4 @@
-export type ApiUser = {
+export interface ApiUser {
   id: number;
   name: string;
   username: string;
@@ -20,4 +20,4 @@ export type ApiUser = {
     catchPhrase: string;
     bs: string;
   };
-};
+}
