@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import {
   Table,
   TableBody,
@@ -13,6 +16,12 @@ type UsersTableProps = {
 };
 
 export function UsersTable({ users }: UsersTableProps) {
+  const router = useRouter();
+
+  function navigateToUserDetails(userId: number) {
+    router.push(`/users/${userId}`);
+  }
+
   return (
     <Table>
       <TableHeader>
@@ -25,7 +34,19 @@ export function UsersTable({ users }: UsersTableProps) {
       </TableHeader>
       <TableBody>
         {users.map((user) => (
-          <TableRow key={user.id}>
+          <TableRow
+            key={user.id}
+            className="cursor-pointer"
+            onClick={() => navigateToUserDetails(user.id)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                navigateToUserDetails(user.id);
+              }
+            }}
+            tabIndex={0}
+            aria-label={`Open details for ${user.name}`}
+          >
             <TableCell>{user.name}</TableCell>
             <TableCell>{user.email}</TableCell>
             <TableCell>{user.company.name}</TableCell>
