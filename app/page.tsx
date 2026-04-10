@@ -1,10 +1,15 @@
-import Image from "next/image";
+import { UsersTable } from "@/components/users/users-table";
+import { fetchUsers } from "@/lib/api/users";
 
-export default function Home() {
+export default async function Home() {
+  const users = await fetchUsers();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        
+    <div className="flex flex-1 justify-center p-6">
+      <main className="w-full max-w-5xl space-y-4">
+        <h1 className="text-2xl font-semibold">Users</h1>
+
+        <UsersTable users={users} />
       </main>
     </div>
   );
